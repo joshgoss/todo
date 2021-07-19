@@ -1,0 +1,25 @@
+FROM python:3.9-slim-buster
+
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+        # deps for installing poetry
+        curl \
+        # deps for building python deps
+        build-essential
+
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+
+ENV PATH="${PATH}:/root/.poetry/bin"
+
+WORKDIR /app
+COPY poetry.lock pyproject.toml /app/
+RUN poetry install --no-dev
+
+WORKDIR /app/todo
+CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
