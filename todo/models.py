@@ -13,6 +13,3 @@ class User(Base):
     last_name = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
     updated_at = Column(DateTime, nullable=True)
-    
-    class Config:
-        orm_mode = True

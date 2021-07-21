@@ -1,21 +1,12 @@
 from fastapi import FastAPI
-from functools import lru_cache
-
-from .config import Settings
-from .models import Base
 from .database import SessionLocal, engine
+from .routers import users
+from .schemas import Message
 
 app = FastAPI()
 
-@lru_cache()
-def get_settings():
-    return Settings()
+app.include_router(users.router)
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
+@app.get('/healthcheck', response_model=Message)
+async def healthcheck():
+    return {"message": "Success"}
