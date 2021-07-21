@@ -12,13 +12,12 @@ RUN apt-get update \
         build-essential \ 
         libpq-dev
 
+WORKDIR /app
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 
+COPY poetry.lock pyproject.toml alembic.ini /app/
 ENV PATH="${PATH}:/root/.poetry/bin"
 
-WORKDIR /app
-COPY alembic/ /app/alembic/
-COPY poetry.lock pyproject.toml alembic.ini /app/
 RUN poetry install --no-dev
 
-CMD ["poetry", "run", "uvicorn", "todo.main:app", "--host", $app_host, "--port", $app_port, "--reload"]
+ENTRYPOINT ["poetry", "run", "uvicorn", "todo.main:app", "--host", "0.0.0.0", "--port", "8000"]
