@@ -9,6 +9,10 @@ license = "MIT"
 python = "^3.9"
 fastapi = "^0.66.0"
 uvicorn = {extras = ["standard"], version = "^0.14.0"}
+SQLAlchemy = {extras = ["postgresql"], version = "^1.4.21"}
+python-dotenv = "^0.18.0"
+pydantic = "^1.8.2"
+alembic = "^1.6.5"
 
 [tool.poetry.dev-dependencies]
 
