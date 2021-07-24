@@ -3,6 +3,7 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     access_token_expire_minutes: int
+    access_token_algorithm: str
     app_name: str
     app_host: str
     app_port: str
