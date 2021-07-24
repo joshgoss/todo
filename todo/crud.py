@@ -19,3 +19,17 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 def get_user_by_username(db: Session, username: str):
     return db.query(models.User).filter(models.User.username == username).first()
+
+
+def update_user(db: Session, username, data: schemas.UserUpdate):
+    db_user = db.query(models.User).filter(models.User.username == username).first()
+
+    if data.first_name:
+        db_user.first_name = data.first_name
+
+    if data.last_name:
+        db_user.last_name = data.last_name
+    
+    db.commit()
+    
+    return db_user
