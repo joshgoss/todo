@@ -15,10 +15,10 @@ def auth(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends
     user = crud.get_user_by_username(db, form_data.username)
     
     if not user:
-        return False
+        raise HTTPException(status_code=401, detail="Invalid login or password")
     
     if not utils.verify_password(form_data.password, user.hashed_password):
-        return False
+        raise HTTPException(status_code=401, detail="Invalid login or password")
 
     if not user:
         raise HTTPException(status_code=401, detail="Invalid login or password")
