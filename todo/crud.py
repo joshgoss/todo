@@ -3,11 +3,14 @@ from . import models, schemas, utils
 
 def create_todo(db: Session, data: schemas.ToDoBase):
     todo = models.ToDo(**data)
-
     db.add(todo)
     db.commit()
     db.refresh(todo)
     return todo
+
+
+def get_user_todos(db: Session, user_id: int):
+    return db.query(models.ToDo).filter(models.ToDo.user_id == user_id).all()
 
 
 def create_user(db: Session, user: schemas.UserCreate):
