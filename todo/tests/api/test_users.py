@@ -1,4 +1,3 @@
-from ...main import app
 from ..factories import UserCreateFactory, UserModelFactory
 
 

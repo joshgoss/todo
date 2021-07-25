@@ -3,6 +3,17 @@ from faker import Faker
 from .. import models, schemas, utils
 from .common import Session
 
+
+class ToDoCreateFactory(factory.Factory):
+    class Meta:
+        model = schemas.ToDoBase
+    
+    description = factory.Faker('job')
+    priority = schemas.PriorityEnum.low
+    due_date = factory.Faker('date')
+    completed = False
+
+
 class UserCreateFactory(factory.Factory):
     class Meta:
         model = schemas.UserCreate
@@ -17,7 +28,6 @@ class UserModelFactory(factory.alchemy.SQLAlchemyModelFactory):
     class Meta:
         model = models.User
         sqlalchemy_session = Session
-        sqlalchemy_get_or_create = ('username',)
 
     username = factory.Faker('user_name')
     hashed_password = factory.Faker('pystr')
