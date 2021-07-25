@@ -1,7 +1,19 @@
+from datetime import date
 import factory
 from faker import Faker
 from .. import models, schemas, utils
 from .common import Session
+
+
+class ToDoModelFactory(factory.alchemy.SQLAlchemyModelFactory):
+    class Meta:
+        model = models.ToDo
+        sqlalchemy_session = Session
+
+    description = factory.Faker('job')
+    priority = schemas.PriorityEnum.low
+    due_date = date(2021, 6, 12)
+    completed = False
 
 
 class ToDoCreateFactory(factory.Factory):
@@ -10,7 +22,7 @@ class ToDoCreateFactory(factory.Factory):
     
     description = factory.Faker('job')
     priority = schemas.PriorityEnum.low
-    due_date = factory.Faker('date')
+    due_date = date(2021, 6, 12)
     completed = False
 
 

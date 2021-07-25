@@ -13,6 +13,10 @@ def get_user_todos(db: Session, user_id: int):
     return db.query(models.ToDo).filter(models.ToDo.user_id == user_id).all()
 
 
+def get_todo(db: Session, id: int):
+    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
+
+
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = utils.get_password_hash(user.password)
     db_user = models.User(
