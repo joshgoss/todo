@@ -1,6 +1,36 @@
 from sqlalchemy.orm import Session
 from . import models, schemas, utils
 
+def create_todo(db: Session, data: schemas.ToDoBase):
+    todo = models.ToDo(**data)
+    db.add(todo)
+    db.commit()
+    db.refresh(todo)
+    return todo
+
+
+def get_user_todos(db: Session, user_id: int):
+    return db.query(models.ToDo).filter(models.ToDo.user_id == user_id).all()
+
+
+def get_todo(db: Session, id: int):
+    return db.query(models.ToDo).filter(models.ToDo.id == id).first()
+
+def update_todo(db: Session, id: int, data: schemas.ToDoBase):
+    todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+
+    for key, value in data.__dict__.items():
+        setattr(todo, key, value)
+
+    db.commit()
+
+    return todo
+
+def delete_todo(db: Session, id: int):
+    todo = db.query(models.ToDo).filter(models.ToDo.id == id).first()
+    db.delete(todo)
+    db.commit()
+    return todo
 
 def create_user(db: Session, user: schemas.UserCreate):
     hashed_password = utils.get_password_hash(user.password)
@@ -30,12 +60,9 @@ def get_user_by_username(db: Session, username: str):
 
 def update_user(db: Session, username, data: schemas.UserUpdate):
     db_user = db.query(models.User).filter(models.User.username == username).first()
-
-    if data.first_name:
-        db_user.first_name = data.first_name
-
-    if data.last_name:
-        db_user.last_name = data.last_name
+    
+    for key, value in data.__dict__.items():
+        setattr(db_user, key, value)
     
     db.commit()
     
