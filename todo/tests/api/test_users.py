@@ -47,6 +47,23 @@ class TestUsersMe:
         assert response.status_code == 200
         assert response.json()['username'] == test_user.username
 
+class TestUsernameExists:
+    def test_with_username_existance(self, client, access_token, test_user):
+        response = client.get(
+            f"/users/username-exists/{test_user.username}",  
+            headers={"Authorization": f"Bearer {access_token}"}   
+        )
+        assert response.status_code == 200
+        assert response.json()['exists'] == True
+
+    def test_with_username_nonexistance(self, client, test_user, access_token):
+        response = client.get(
+            f"/users/username-exists/madeupusername",
+            headers={"Authorization": f"Bearer {access_token}"}   
+        )
+        assert response.status_code == 200
+        assert response.json()['exists'] == False
+
 
 class TestUsersUpdate:
     def test_with_no_token(self, client, test_user):
