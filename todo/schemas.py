@@ -19,6 +19,8 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+class Exists(BaseModel):
+    exists: bool
 
 class Message(BaseModel):
     message: str
