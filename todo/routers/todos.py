@@ -30,5 +30,13 @@ def get_todo(db: Session = Depends(dependencies.get_db), current_user: models.Us
     return crud.get_user_todos(db, current_user.id)
 
 @router.get("/{id}", response_model=schemas.ToDo)
-def get_todo(id, todo: models.ToDo = Depends(get_path_todo)):
+def get_todo(id: int, todo: models.ToDo = Depends(get_path_todo)):
     return todo
+
+@router.put("/{id}", response_model=schemas.ToDo)
+def update_todo(id: int, data: schemas.ToDoBase, todo: models.ToDo = Depends(get_path_todo), db: Session = Depends(dependencies.get_db)):
+    return crud.update_todo(db, id, data)
+
+@router.delete("/{id}", response_model=schemas.ToDo)
+def delete_todo(id: int, todo: models.ToDo = Depends(get_path_todo), db: Session = Depends(dependencies.get_db)):
+    return crud.delete_todo(db, id)

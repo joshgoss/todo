@@ -30,9 +30,9 @@ class TokenData(BaseModel):
 
 class ToDoBase(BaseModel):
     description: str
-    priority: PriorityEnum = PriorityEnum.none
+    priority: Optional[PriorityEnum] = PriorityEnum.none
     due_date: Optional[date] = None
-    completed: bool
+    completed: Optional[bool]  = False
 
     class Config:
         orm_mode = True

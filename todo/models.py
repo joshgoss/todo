@@ -21,7 +21,7 @@ class ToDo(Base):
     __tablename__ = "todos"
     id = Column(Integer, primary_key=True, index=True)
     description = Column(String, index=True)
-    priority = Column(Enum(PriorityEnum))
+    priority = Column(Enum(PriorityEnum),  default=PriorityEnum.none)
     due_date = Column(Date, nullable=True)
     completed = Column(Boolean, default=False)
     user_id  = Column(Integer, ForeignKey('users.id'))
