@@ -36,7 +36,7 @@ def get_me(user: models.User = Depends(dependencies.get_current_user)):
     return user
 
 @router.get('/username-exists/{username}', response_model=schemas.Exists)
-def get_me(username, db: Session = Depends(dependencies.get_db), current_user: models.User = Depends(dependencies.get_current_user)):
+def get_username_exists(username, db: Session = Depends(dependencies.get_db)):
     user = crud.get_user_by_username(db, username)
 
     return {

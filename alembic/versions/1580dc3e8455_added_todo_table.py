@@ -1,8 +1,8 @@
-"""Added todos table
+"""Added todo table
 
-Revision ID: da66c257d80f
+Revision ID: 1580dc3e8455
 Revises: 490b3c54e605
-Create Date: 2021-07-25 02:01:51.813746
+Create Date: 2021-08-02 10:26:48.068827
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'da66c257d80f'
+revision = '1580dc3e8455'
 down_revision = '490b3c54e605'
 branch_labels = None
 depends_on = None
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('todos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
-    sa.Column('priority', sa.Enum('low', 'medium', 'high', name='priorityenum'), nullable=True),
+    sa.Column('priority', sa.Enum('none', 'low', 'medium', 'high', name='priorityenum'), nullable=True),
     sa.Column('due_date', sa.Date(), nullable=True),
     sa.Column('completed', sa.Boolean(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),

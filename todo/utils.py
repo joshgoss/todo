@@ -20,9 +20,14 @@ def get_password_hash(password):
 def generate_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = (datetime.utcnow() + expires_delta).timestamp()
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
+        expire = (
+            datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
+        ).timestamp()
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.access_token_algorithm)
-    return encoded_jwt
+    encoded_jwt = jwt.encode(
+        to_encode, settings.secret_key, algorithm=settings.access_token_algorithm
+    )
+
+    return {"access_token": encoded_jwt, "expiration": expire, "token_type": "bearer"}

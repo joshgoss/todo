@@ -3,11 +3,12 @@ import enum
 from pydantic import BaseModel, constr, EmailStr
 from typing import Optional
 
-class PriorityEnum(int, enum.Enum):
-    none = 0
-    low = 1
-    medium = 2
-    high = 3
+
+class PriorityEnum(str, enum.Enum):
+    none = "none"
+    low = "low"
+    medium = "medium"
+    high = "high"
 
 
 class Login(BaseModel):
@@ -17,13 +18,17 @@ class Login(BaseModel):
 
 class Token(BaseModel):
     access_token: str
+    expiration: int
     token_type: str
+
 
 class Exists(BaseModel):
     exists: bool
 
+
 class Message(BaseModel):
     message: str
+
 
 class TokenData(BaseModel):
     username: Optional[str] = None
@@ -34,7 +39,7 @@ class ToDoBase(BaseModel):
     description: str
     priority: Optional[PriorityEnum] = PriorityEnum.none
     due_date: Optional[date] = None
-    completed: Optional[bool]  = False
+    completed: Optional[bool] = False
 
     class Config:
         orm_mode = True
@@ -48,8 +53,11 @@ class ToDo(ToDoBase):
     class Config:
         orm_mode = True
 
+
 class UserBase(BaseModel):
-    username: constr(regex=r'^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$', min_length=3, max_length=20)
+    username: constr(
+        regex=r"^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$", min_length=3, max_length=20
+    )
     first_name: Optional[str] = None
     last_name: Optional[str] = None
 
@@ -62,6 +70,7 @@ class UserUpdate(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
 
+
 class User(UserBase):
     id: int
     created_at: datetime = None
@@ -69,5 +78,3 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
-
-
