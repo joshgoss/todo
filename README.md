@@ -33,10 +33,10 @@ SECRET_KEY=<secret key>
 ### Required Local Dependencies
 The following packages need to be installed on your system:
 
-+ (Python 3)[https://www.python.org/downloads/] 
-+ (Poetry)[https://python-poetry.org/docs/]
-+ (Docker)[https://docs.docker.com/get-docker/]
-+ (Docker Compose)[https://docs.docker.com/compose/]
++ [Python 3](https://www.python.org/downloads/)
++ [Poetry](https://python-poetry.org/docs/)
++ [Docker](https://docs.docker.com/get-docker/)
++ [Docker Compose](https://docs.docker.com/compose/)
 
 ### Install python dependencies
 
@@ -52,7 +52,7 @@ The recommended way to run this project is through using docker containers.
 
 **Run containers using VS Code**
 
-+ Install (docker extension)[https://code.visualstudio.com/docs/containers/overview]
++ Install [docker extension](https://code.visualstudio.com/docs/containers/overview)
 + Right click on docker-compose.local.yml and click 'Compose Up'
 
 
@@ -64,7 +64,7 @@ docker-compose up
 
 ### API Documentation
 
-To test to see if the API server is running correct visit the (API documentation )[https://localhost:8000/docs] page.
+To test to see if the API server is running correct visit the [API documentation](https://localhost:8000/docs) page.
 
 
 
