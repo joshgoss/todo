@@ -7,7 +7,11 @@ class Settings(BaseSettings):
     app_name: str
     app_host: str
     app_port: str
-    database_url: str
+    postgres_db: str
+    postgres_host: str
+    postgres_password: str
+    postgres_port: int
+    postgres_user: str
     secret_key: str
 
     class Config:
