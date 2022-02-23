@@ -4,7 +4,9 @@ from sqlalchemy.orm import sessionmaker
 
 from .config import settings
 
-engine = create_engine(settings.database_url)
+
+DATABASE_URL=f"postgresql+psycopg2://${settings.postgres_user}:${settings.postgres_password}@${settings.postgres_host}/${settings.postgres_db}"
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()

@@ -7,7 +7,6 @@ Restful ToDo API using fastapi.
 + Docker
 + Python
 + FastAPI
-+ Redis
 + Postgresql
 
 ## Environment Variables
@@ -21,10 +20,15 @@ ACCESS_TOKEN_ALGORITHM=bcrypt
 APP_NAME=todo
 APP_HOST=localhost
 APP_PORT=8000
-DATABASE_URL=postgresql+psycopg2://<db_user>:<db_password>@hostname/<db>'
-POSTGRES_USER=<db_user>
-POSTGRES_PASSWORD=<db_password>
-POSTGRES_DB=<db>
+APP_PORT=8000
+NGINX_PORT=80
+NGINX_SSL_PORT=443
+NGINX_HOST=todo.local
+POSTGRES_DB=todo
+POSTGRES_HOST=localhost
+POSTGRES_PASSWORD=<INSERT DB PASSWORD>
+POSTGRES_PORT=5432
+POSTGRES_USER=todo
 SECRET_KEY=<secret key>
 ```
 
@@ -37,6 +41,7 @@ The following packages need to be installed on your system:
 + [Poetry](https://python-poetry.org/docs/)
 + [Docker](https://docs.docker.com/get-docker/)
 + [Docker Compose](https://docs.docker.com/compose/)
++ [mkcert](https://github.com/FiloSottile/mkcert)
 
 ### Install python dependencies
 
@@ -45,6 +50,15 @@ Within the project directory, run the following command to install all required 
 ```
 poetry install
 ```
+
+## Use mkcert to create local ssl certs
+
+Run the follow commands to generate local ssl certs for nginx to use.
+
+```mkcert -install```
+```mkcert todo-api.local```
+```mkdir certs``
+```mv todo-api.local-key.pem	todo-api.local.pem certs/```
 
 ### Run docker containers
 
