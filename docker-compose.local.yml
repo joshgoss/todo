@@ -17,7 +17,7 @@ services:
     image: todoapi
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./Dockerfile
     ports:
       - ${APP_PORT}:${APP_PORT}
     volumes: 
