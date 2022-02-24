@@ -16,7 +16,7 @@ Below all the required environment variables are listed. For local development, 
 
 ```
 ACCESS_TOKEN_EXPIRE_MINUTES=60
-ACCESS_TOKEN_ALGORITHM=bcrypt
+ACCESS_TOKEN_ALGORITHM=HS256
 APP_NAME=todo
 APP_HOST=localhost
 APP_PORT=8000
