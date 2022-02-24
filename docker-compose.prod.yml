@@ -32,13 +32,13 @@ services:
       - ${NGINX_PORT}:${NGINX_PORT}
       - ${NGINX_SSL_PORT}:${NGINX_SSL_PORT}
     volumes:
-      - ./templates:/etc/nginx/templates
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/certs/:ro
+      - ./conf/prod/templates:/etc/nginx/templates
+      - ./conf/prod/certbot/www:/var/www/certbot/:ro
+      - ./conf/prod/certbot/conf/:/etc/nginx/certs/:ro
   certbot:
     env_file:
       - .env.prod
     image: certbot/certbot:latest
     volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
+      - ./conf/prod/certbot/www/:/var/www/certbot/:rw
+      - ./conf/prod/certbot/conf/:/etc/letsencrypt/:rw

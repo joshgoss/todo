@@ -32,5 +32,5 @@ services:
       - ${NGINX_PORT}:${NGINX_PORT}
       - ${NGINX_SSL_PORT}:${NGINX_SSL_PORT}
     volumes:
-      - ./templates:/etc/nginx/templates
-      - ./certs:/etc/nginx/certs
+      - ./conf/local/templates:/etc/nginx/templates
+      - ./conf/local/certs:/etc/nginx/certs
