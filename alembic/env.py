@@ -40,7 +40,11 @@ target_metadata = database.Base.metadata
 # ... etc.
 
 def get_url():
-    return os.getenv("DATABASE_URL")
+    user = os.getenv("POSTGRES_USER")
+    password = os.getenv("POSTGRES_PASSWORD")
+    host = os.getenv("POSTGRES_HOST")
+    db = os.getenv("POSTGRES_DB")
+    return f"postgresql+psycopg2://{user}:{password}@{host}/{db}"
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.
