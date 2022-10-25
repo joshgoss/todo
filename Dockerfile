@@ -8,15 +8,15 @@ ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
-        curl \
-        build-essential \ 
-        libpq-dev
+    curl \
+    build-essential \ 
+    libpq-dev
 
 WORKDIR /app
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+RUN curl -sSL https://install.python-poetry.org | python -
 
-COPY poetry.lock pyproject.toml alembic.ini /app/
-ENV PATH="${PATH}:/root/.poetry/bin"
+COPY poetry.lock pyproject.toml alembic.ini  /app/
+ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
 
