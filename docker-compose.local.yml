@@ -22,15 +22,3 @@ services:
       - ${APP_PORT}:${APP_PORT}
     volumes: 
       - ./todo:/app/todo
-  nginx: 
-    depends_on:
-      - api
-    env_file:
-      - .env
-    image: nginx
-    ports: 
-      - ${NGINX_PORT}:${NGINX_PORT}
-      - ${NGINX_SSL_PORT}:${NGINX_SSL_PORT}
-    volumes:
-      - ./conf/local/templates:/etc/nginx/templates
-      - ./conf/local/certs:/etc/nginx/certs
