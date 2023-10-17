@@ -1,4 +1,4 @@
-name: scp files
+name: Deploy changes
 on:
     push:
         branches:
@@ -6,9 +6,12 @@ on:
 env:
     REACT_APP_API_URL: ${{ secrets.API_URL }}
 jobs:
-    build:
-        name: Build and Deploy
+    deploy_client:
+        name: Build and deploy client
         runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ./frontend
         steps:
             - uses: actions/checkout@master
             - name: Bucket actions
@@ -28,3 +31,17 @@ jobs:
                   source: "./build/*"
                   strip_components: 1
                   target: "~/apps/todo-client"
+    # deploy_backend:
+    #     name: Build and push docker image
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Check out the repo
+    #           uses: actions/checkout@v4
+    #         - name: Build image
+    #           run: docker build -t backend/
+    #         - name: Install doctl
+    #           uses: digitalocean/action-doctl@v2
+    #           with:
+    #               token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    #         - name: Log in to DO Container Registry
+    #           run: doctl registry login --expiry-seconds 600
