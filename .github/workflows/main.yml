@@ -21,7 +21,7 @@ jobs:
             - run: npm install
             - run: npm run build
             - name: publish files using scp
-              uses: appleboy/scp-action@@v0.1.4
+              uses: appleboy/scp-action@v0.1.4
               with:
                   host: ${{ secrets.SSH_HOST }}
                   username: ${{ secrets.SSH_USERNAME }}
