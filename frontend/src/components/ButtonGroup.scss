@@ -1,0 +1,30 @@
+.button-group {
+  .button {
+    border-top: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    color: #444;
+    font-size: 0.875em;
+    padding: 8px;
+  }
+
+  .button.active {
+    background: #ddd;
+    cursor: text;
+  }
+
+  .button:hover {
+    cursor: pointer;
+  }
+
+  .button:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left: 1px solid #aaa;
+  }
+
+  .button:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}

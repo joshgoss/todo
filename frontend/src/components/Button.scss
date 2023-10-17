@@ -1,0 +1,57 @@
+@import "../styles/_colors.scss";
+@import "../styles/_helpers.scss";
+
+form button {
+    float: right;
+    margin-top: 20px;
+
+    &:first-of-type {
+        margin-right: 20px;
+    }
+
+    &:first-of-type:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+button {
+    background: #fafafa;
+    border: 0;
+    border: 1px solid #bbb;
+    color: $black;
+    cursor: pointer;
+    font-size: 0.875em;
+    margin: 0 0 0 10px;
+    min-width: 85px;
+    padding: 12px 15px;
+
+    &:active,
+    &.active {
+        background: darken($white, 15%);
+    }
+
+    &:hover {
+        background: darken($white, 10%);
+    }
+
+    &:disabled {
+        color: tint($black, 80%);
+        background: tint($black, 95%);
+        cursor: not-allowed;
+    }
+
+    &.primary {
+        background: $primary;
+        color: $white;
+    }
+
+    &.primary:hover {
+        background: shade($primary, 30%);
+    }
+
+    &.primary:disabled {
+        background: tint($primary, 60%);
+    }
+}
