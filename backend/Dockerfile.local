@@ -15,8 +15,7 @@ RUN apt-get update \
 WORKDIR /app
 RUN curl -sSL https://install.python-poetry.org | python -
 
-COPY poetry.lock pyproject.toml alembic.ini   /app/
-COPY todo/ /app/todo
+COPY poetry.lock pyproject.toml alembic.ini  /app/
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
