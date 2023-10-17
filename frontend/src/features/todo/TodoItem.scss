@@ -1,0 +1,52 @@
+.todo-item {
+    background: white;
+    position: relative;
+    padding: 7px 30px 12px 10px;
+    border-top: 1px solid #ccc;
+
+    border-right: 1px solid #ccc;
+
+    &.editing {
+        background: #eee;
+    }
+
+    &:last-of-type {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .description {
+        font-size: 0.875em;
+        margin: 0 0 5px 0;
+        padding: 0;
+    }
+
+    .body {
+        .field {
+            display: block;
+            width: auto;
+            float: left;
+            font-size: 0.75em;
+            margin: 0 0 0 5px;
+
+            span {
+                color: #666;
+            }
+        }
+        .created-at {
+            float: right;
+            color: #888;
+            font-size: 0.75em;
+            margin: 0 0 0 0;
+            padding: 0;
+        }
+    }
+    .field:first-of-type {
+        margin-left: 0;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+    }
+}

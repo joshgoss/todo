@@ -1,0 +1,21 @@
+@import "../styles/_variables.scss";
+
+.field {
+  width: 100%;
+  flex-basis: 100%;
+
+  &.col-1 {
+    width: 100%;
+    flex-basis: 100%;
+  }
+
+  &.col-2 {
+    width: calc(50% - #{$form-column-gap});
+    flex-basis: calc(50% - #{$form-column-gap});
+  }
+
+  &.col-3 {
+    width: calc(33.3% - #{$form-column-gap});
+    flex-basis: calc(33.3% - #{$form-column-gap});
+  }
+}

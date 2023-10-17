@@ -1,0 +1,59 @@
+.todo-page {
+    .action-bar {
+        display: flex;
+        background: #e0e0e0;
+        padding: 5px;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        align-items: center;
+
+        .search {
+            width: 250px;
+            max-width: 250px;
+        }
+
+        .search input:not(:focus) {
+            background: #eee;
+        }
+
+        .search input::focus {
+            background: #fff;
+        }
+
+        .button-group {
+            background: transparent;
+            margin-left: auto;
+        }
+
+        .button-group .active {
+            background: #bbb;
+        }
+
+        button.add-button {
+            background: #e0e0e0;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+        }
+
+        button.add-button:hover {
+            background: #efefef;
+        }
+
+        button.add-button.active {
+            background: #c0c0c0;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .todo-page {
+        .filter-bar {
+            flex-direction: column;
+
+            .button-group {
+                margin-top: 15px;
+            }
+        }
+    }
+}

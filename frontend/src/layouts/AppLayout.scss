@@ -1,0 +1,74 @@
+@import "../styles/_variables.scss";
+
+$layout-width: 1024px;
+
+.app-layout {
+    background: #203d88;
+    height: 100%;
+
+    .subtle {
+        color: #eee;
+    }
+    .top-bar-container {
+        color: White;
+        margin-bottom: 12px;
+
+        .top-bar {
+            margin: 0 auto;
+            width: $layout-width;
+            height: $top-bar-height;
+
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            .brand {
+                margin-left: 15px;
+                display: flex;
+                justify-content: center;
+                align-self: center;
+            }
+
+            .account {
+                display: flex;
+                justify-content: center;
+                align-self: center;
+                align-items: center;
+                margin-left: auto;
+                margin-right: 10px;
+                color: #aaa;
+                .username {
+                    color: #fff;
+                    font-size: 1em;
+                }
+
+                a {
+                    color: lightblue;
+                }
+
+                a:visited {
+                    color: lighten(purple, 10%);
+                }
+            }
+        }
+    }
+
+    .page {
+        height: calc(100% - 50px);
+        margin: 0 auto;
+        overflow-y: auto;
+        width: $layout-width;
+        margin-top: 12px;
+    }
+}
+
+@media screen and (max-width: $layout-width) {
+    .page {
+        width: 100% !important;
+        padding: 0 7px;
+    }
+
+    .app-layout .top-bar-container .top-bar {
+        width: 100% !important;
+    }
+}

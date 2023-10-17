@@ -1,0 +1,69 @@
+@import "../styles/_colors.scss";
+
+.login-layout {
+    background: #203d88;
+
+    .label {
+        color: #ddd;
+    }
+
+    h1 {
+        color: #eee;
+    }
+
+    p {
+        color: #dadada;
+    }
+
+    a {
+        color: lightblue;
+    }
+
+    button.primary:disabled {
+        background: lighten($brand-primary, 7%);
+        color: lighten($brand-primary, 40%);
+    }
+
+    button.primary:hover:enabled {
+        background: lighten($blue, 5%);
+    }
+
+    a:visited {
+        color: lighten(purple, 15%);
+    }
+
+    .page-content {
+        width: 500px;
+        margin: 30px auto;
+    }
+
+    .brand-content svg {
+        height: 175px;
+        width: 400px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+.login-layout .brand {
+    background: #203d88;
+
+    .brand-content {
+        display: block;
+        width: 432px;
+        margin: 0 auto;
+    }
+}
+
+/********************
+* Media Queries
+********************/
+@media only screen and (max-width: 600px) {
+    .login-layout .brand .brand-content,
+    .login-layout .page-content {
+        width: 100%;
+    }
+
+    .login-layout .brand-content svg {
+    }
+}
