@@ -39,12 +39,12 @@ jobs:
                   echo "image=$ECR_REGISTRY/${{ secrets.ECR_REPO }}:$IMAGE_TAG  " >> $GITHUB_OUTPUT
             - name: Download task definition
               run: |
-                  aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition > $TASK_DEFINITION_FILE
+                  aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition > ${{ env.TASK_DEFINITION_FILE }}
             - name: Fill in the new image ID in the Amazon ECS task definition
               id: task-def
               uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
               with:
-                  task-definition: $TASK_DEFINITION_FILE
+                  task-definition: ${{ env.TASK_DEFINITION_FILE }}
                   container-name: ${{ secrets.ECS_CONTAINER_NAME }}
                   image: ${{ steps.build-image.outputs.image }}
 
