@@ -42,10 +42,9 @@ jobs:
 
             - name: Download task definition
               id: download-task-def
-              env:
-                  AWS_CMD: aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition
               run: |
-                  echo "ORIG_TASK_DEF=$($AWS_CMD)" >> $GITHUB_ENV
+                  aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition >> ${{ env.TASK_DEFINITION_FILE }}
+                  echo "ORIG_TASK_DEF=$(cat ${{env.TASK_DEFINITION_FILE}})" >> $GITHUB_ENV
 
             - shell: bash
               run: |
