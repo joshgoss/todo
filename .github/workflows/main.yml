@@ -42,12 +42,14 @@ jobs:
 
             - name: Download task definition
               id: download-task-def
+              env:
+                  AWS_CMD: aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition
               run: |
-                  echo "ORIG_TASK_DEF=$(aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition)" >> $GITHUB_ENV
+                  echo "ORIG_TASK_DEF=$($AWS_CMD)" >> $GITHUB_ENV
 
             - shell: bash
               run: |
-                  echo "${{ steps.download-task-def.ORIG_TASK_DEF}}" > ${{ env.TASK_DEFINITION_FILE }}
+                  echo "${{ steps.download-task-def.outputs.ORIG_TASK_DEF}}" > ${{ env.TASK_DEFINITION_FILE }}
 
             - name: Upload original task definition
               uses: actions/upload-artifact@v3
@@ -59,7 +61,7 @@ jobs:
               with:
                   name: orig-task-def
             - name: Fill in the new image ID in the Amazon ECS task definition
-              id: task-def
+              id: new-task-def
               uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
               with:
                   task-definition: ${{ env.TASK_DEFINITION_FILE }}
@@ -68,7 +70,7 @@ jobs:
             - name: Deploy Amazon ECS task definition
               uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
               with:
-                  task-definition: ${{ steps.task-def.outputs.task-definition }}
+                  task-definition: ${{ steps.new-task-def.outputs.task-definition }}
                   service: ${{ env.ECS_SERVICE }}
                   cluster: ${{ env.ECS_CLUSTER }}
                   wait-for-service-stability: true
