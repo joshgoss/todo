@@ -4,7 +4,7 @@ on:
         branches:
             - main
 env:
-    TASK_DEFINITION_FILE: task-definition.json
+    TASK_DEFINITION_FILE: .aws/task-definition.json
 jobs:
     deploy_backend:
         name: "Build and Push to ECR"
@@ -38,27 +38,6 @@ jobs:
                   docker build -t $ECR_REGISTRY/${{ secrets.ECR_REPO }}:$IMAGE_TAG .
                   docker push $ECR_REGISTRY/${{ secrets.ECR_REPO }}:$IMAGE_TAG
                   echo "image=$ECR_REGISTRY/${{ secrets.ECR_REPO }}:$IMAGE_TAG  " >> $GITHUB_OUTPUT
-
-            - name: Download task definition
-              id: download-task-def
-              run: |
-                  aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition >> ${{ env.TASK_DEFINITION_FILE }}
-                  cat ${{ env.TASK_DEFINITION_FILE }}
-                  echo "ORIG_TASK_DEF=$(cat task-definition.json)" >> $GITHUB_OUTPUT
-
-            - shell: bash
-              run: |
-                  echo "${{ steps.download-task-def.outputs.ORIG_TASK_DEF}}" > ${{ env.TASK_DEFINITION_FILE }}
-
-            - name: Upload original task definition
-              uses: actions/upload-artifact@v3
-              with:
-                  name: orig-task-def
-                  path: ${{ env.TASK_DEFINITION_FILE }}
-            - name: Download original task definition
-              uses: actions/download-artifact@v3
-              with:
-                  name: orig-task-def
             - name: Fill in the new image ID in the Amazon ECS task definition
               id: new-task-def
               uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
