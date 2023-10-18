@@ -44,6 +44,7 @@ jobs:
               run: |
                   aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition >> ${{ env.TASK_DEFINITION_FILE }}
                   cat ${{ env.TASK_DEFINITION_FILE }}
+                  echo "ORIG_TASK_DEF=$(cat task-definition.json)" >> $GITHUB_OUTPUT
 
             - shell: bash
               run: |
