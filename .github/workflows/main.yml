@@ -4,7 +4,6 @@ on:
         branches:
             - main
 env:
-    REACT_APP_API_URL: ${{ secrets.API_URL }}
     TASK_DEFINITION_FILE: task-definition.json
 jobs:
     deploy_backend:
@@ -44,7 +43,7 @@ jobs:
               id: download-task-def
               run: |
                   aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition >> ${{ env.TASK_DEFINITION_FILE }}
-                  echo "ORIG_TASK_DEF=$(cat ${{env.TASK_DEFINITION_FILE}})" >> $GITHUB_ENV
+                  echo "ORIG_TASK_DEF=$(cat ${{env.TASK_DEFINITION_FILE}})" >> $GITHUB_OUTPUT
 
             - shell: bash
               run: |
