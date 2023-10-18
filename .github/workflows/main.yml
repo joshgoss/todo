@@ -4,7 +4,7 @@ on:
         branches:
             - main
 env:
-    TASK_DEFINITION_FILE: .aws/task-definition.json
+    TASK_DEFINITION_FILE: ./backend/.aws/task-definition.json
 jobs:
     deploy_backend:
         name: "Build and Push to ECR"
