@@ -43,7 +43,7 @@ jobs:
               id: download-task-def
               run: |
                   aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition >> ${{ env.TASK_DEFINITION_FILE }}
-                  echo "ORIG_TASK_DEF=$(cat ${{env.TASK_DEFINITION_FILE}})" >> $GITHUB_OUTPUT
+                  cat ${{ env.TASK_DEFINITION_FILE }}
 
             - shell: bash
               run: |
