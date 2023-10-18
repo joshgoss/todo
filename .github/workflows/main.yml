@@ -6,46 +6,30 @@ on:
 env:
     REACT_APP_API_URL: ${{ secrets.API_URL }}
 jobs:
-    deploy_client:
-        name: Build and deploy client
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ./frontend
-        steps:
-            - uses: actions/checkout@master
-            - name: Bucket actions
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 16
-            - run: npm install
-            - run: npm run build
-            - name: publish files using scp
-              uses: appleboy/scp-action@v0.1.4
-              with:
-                  host: ${{ secrets.SSH_HOST }}
-                  username: ${{ secrets.SSH_USERNAME }}
-                  key: ${{ secrets.SSH_KEY }}
-                  port: ${{ secrets.SSH_PORT }}
-                  overwrite: true
-                  source: "./build/*"
-                  strip_components: 1
-                  target: "~/apps/todo-client"
     deploy_backend:
-        name: Build and push docker image
+        name: "Build and Push to ECR"
         runs-on: ubuntu-latest
+
         steps:
-            - name: Check out the repo
-              uses: actions/checkout@v4
-            - name: Build image
-              run: docker build ./backend/ -t todoapi
-            - name: Install doctl
-              uses: digitalocean/action-doctl@v2
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
               with:
-                  token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-            - name: Log in to DO Container Registry
-              run: doctl registry login --expiry-seconds 600
-            - name: Tag image
-              run: docker tag todoapi ${{ secrets.DOCKER_REGISTRY }}/todoapi
-            - name: Push image to DO Container Registry
-              run: docker push ${{ secrets.DOCKER_REGISTRY }}/todoapi
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+                  aws-region: ${{ secrets.AWS_REGION }}
+
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+            - name: Build, tag, and push image to Amazon ECR 🏷
+              id: build-image
+              env:
+                  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                  IMAGE_TAG: todoapi
+              run: |
+                  docker build -t $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG .
+                  docker push $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
+                  echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG"
