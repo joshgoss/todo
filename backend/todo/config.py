@@ -19,3 +19,8 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+print(f"POSTGRES PORT: {settings.postgres_port}")
+print(f"POSTGRES USER: {settings.postgres_user}")
+print(f"POSTGRES HOST: {settings.postgres_host}")
+print(f"APP_PORT: {settings.app_port}")
