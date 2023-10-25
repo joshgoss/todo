@@ -21,5 +21,6 @@ COPY alembic/ /app/alembic
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
-RUN ls -l /app
-ENTRYPOINT ["/bin/bash", "/app/run.sh"]
+
+ENTRYPOINT ["poetry", "run", "uvicorn", "todo.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["poetry", "run", "alembic", "upgrade", "head"]
