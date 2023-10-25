@@ -21,5 +21,5 @@ COPY alembic/ /app/alembic
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
-
-ENTRYPOINT ["/app/run.sh"]
+RUN ls -l /app
+ENTRYPOINT ["/bin/bash", "/app/run.sh"]
