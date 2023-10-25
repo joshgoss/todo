@@ -21,6 +21,6 @@ COPY alembic/ /app/alembic
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["poetry", "run", "uvicorn", "todo.main:app", "--host", "0.0.0.0", "--port 8000", "--reload"]
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["poetry", "run", "uvicorn", "todo.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
