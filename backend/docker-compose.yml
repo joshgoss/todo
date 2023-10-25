@@ -17,6 +17,6 @@ services:
         image: ${DOCKER_REGISTRY}/todoapi
         build:
             context: .
-            dockerfile: ./Dockerfile.prod
+            dockerfile: ./Dockerfile
         ports:
             - ${APP_PORT}:${APP_PORT}
