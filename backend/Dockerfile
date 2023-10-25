@@ -22,4 +22,4 @@ ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
 
-ENTRYPOINT ["./run.sh"]
+ENTRYPOINT ["/app/run.sh"]
