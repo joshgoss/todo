@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faEdit,
-  faEllipsisV,
-  faPlus,
-  faSpinner,
-  faSearch,
-  faTrash
+    faEdit,
+    faEllipsisV,
+    faPlus,
+    faSpinner,
+    faSearch,
+    faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Provider } from "react-redux";
 import { store } from "./store";
@@ -26,12 +26,12 @@ library.add(faTrash);
 store.dispatch(loadSession());
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

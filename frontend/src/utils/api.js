@@ -31,8 +31,6 @@ const convertData = (contentType = JSON_CONTENT_TYPE, data) => {
     }
 };
 
-console.log("process.env is: ", process.env);
-
 export const apiFetch = async ({
     endpoint = "",
     method = "",
@@ -43,7 +41,6 @@ export const apiFetch = async ({
         "Content-Type": JSON_CONTENT_TYPE,
     },
 }) => {
-    console.log("inside api fetch");
     const ep = endpoint.startsWith("/") ? endpoint.substring(1) : endpoint;
     const url = `${process.env.REACT_APP_API_URL}${ep}`;
 
@@ -61,9 +58,7 @@ export const apiFetch = async ({
     }
 
     let message = "Something went wrong while performing a request.";
-    console.log("making request");
 
-    console.log("url is: ", url);
     const response = await fetch(url, {
         method,
         cache: "no-cache",
@@ -75,7 +70,6 @@ export const apiFetch = async ({
         body: convertData(headers["Content-Type"], data),
     })
         .then((r) => {
-            console.log("R is : ", r);
             if (!r.ok) {
                 return r
                     .json()
@@ -104,7 +98,6 @@ export const apiFetch = async ({
             return Promise.resolve(r);
         })
         .catch((e) => {
-            console.log("first catch: e ", e);
             e.json()
                 .then((json) => {
                     store.dispatch(
@@ -120,7 +113,6 @@ export const apiFetch = async ({
                     return Promise.resolve(json);
                 })
                 .catch((r) => {
-                    console.log("second catch error: r is", r);
                     store.dispatch(
                         addNotification({
                             message,

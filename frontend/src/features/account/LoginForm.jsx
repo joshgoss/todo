@@ -7,7 +7,6 @@ import { Form } from "../../components";
 import { login } from "./accountActions";
 
 const LoginForm = () => {
-    console.log("inside login form");
     const dispatch = useDispatch();
     const history = useHistory();
     const { register, formState, handleSubmit } = useForm({

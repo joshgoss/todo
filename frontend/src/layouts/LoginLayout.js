@@ -17,8 +17,6 @@ const LoginLayout = ({ children }) => {
         });
     }, [dispatch, history]);
 
-    console.log("children are: ", children);
-
     return (
         <div className="login-layout">
             <Notification />

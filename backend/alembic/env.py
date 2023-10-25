@@ -79,7 +79,6 @@ def run_migrations_online():
     and associate a connection with the context.
 
     """
-    print("URL IS: ", get_url())
     connectable =  create_engine(get_url())
 
     with connectable.connect() as connection:
