@@ -17,7 +17,7 @@ RUN curl -sSL https://install.python-poetry.org | python -
 
 COPY poetry.lock pyproject.toml alembic.ini   /app/
 COPY todo/ /app/todo
-COPY alembic/ /app/todo/alembic
+COPY alembic/ /app/alembic
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
