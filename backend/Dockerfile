@@ -15,12 +15,11 @@ RUN apt-get update \
 WORKDIR /app
 RUN curl -sSL https://install.python-poetry.org | python -
 
-COPY poetry.lock pyproject.toml alembic.ini   /app/
+COPY poetry.lock pyproject.toml alembic.ini run.sh  /app/
 COPY todo/ /app/todo
 COPY alembic/ /app/alembic
 ENV PATH="${PATH}:/root/.local/bin"
 
 RUN poetry install --no-dev
-RUN poetry run alembic upgrade head
 
-ENTRYPOINT ["poetry", "run", "uvicorn", "todo.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+ENTRYPOINT ["./run.sh"]
